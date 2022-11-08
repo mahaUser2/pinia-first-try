@@ -1,26 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="counters">
+    <CounterComp
+      @decrementCount="decrement"
+      @incrementCount="increment"
+      v-for="counter in counters"
+      :key="counter.id"
+      :counter="counter"
+    ></CounterComp>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import counters from "@/assets/counters";
+import CounterComp from "./components/CounterComp.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  data() {
+    return {
+      counters,
+    };
+  },
+  components: {CounterComp},
+  methods: {
+    decrement(id) {
+      let curCounter = this.counters.find((counter) => counter.id === id);
+      curCounter.count--;
+    },
+    increment(id) {
+      let curCounter = this.counters.find((counter) => counter.id === id);
+      curCounter.count++;
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.counters {
+  width: 200px;
+  margin: 0 auto;
 }
 </style>
