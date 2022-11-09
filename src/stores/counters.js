@@ -3,11 +3,10 @@ import {defineStore} from "pinia";
 import counters from "@/assets/counters";
 
 export const useCountersStore = defineStore("counters", {
-  state: () => {
-    return {
-      counters,
-    };
-  },
+  state: () => ({
+    counters,
+    users: [],
+  }),
   //   Actions are like methods
   actions: {
     decrement(id) {
@@ -21,9 +20,9 @@ export const useCountersStore = defineStore("counters", {
   },
   //   Getters are like computed properties
   getters: {
-    returnSum() {
+    returnSum(state) {
       let sum = 0;
-      this.counters.forEach((counter) => {
+      state.counters.forEach((counter) => {
         sum += counter.count;
       });
       return sum;

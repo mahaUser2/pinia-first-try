@@ -1,27 +1,25 @@
 <template>
-  <div class="counter-parent" v-for="counter in counters" :key="counter.is">
-    <button @click="decrement(counter.id)">-</button>
+  <div
+    class="counter-parent"
+    v-for="counter in countersStore.counters"
+    :key="counter.is"
+  >
+    <button @click="countersStore.decrement(counter.id)">-</button>
     <div class="counter" :style="{backgroundColor: counter.color}">
       {{ counter.count }}
     </div>
-    <button @click="increment(counter.id)">+</button>
+    <button @click="countersStore.increment(counter.id)">+</button>
   </div>
 </template>
 
 <script>
 import {useCountersStore} from "@/stores/counters";
-import {mapActions, mapState} from "pinia";
+import {mapStores} from "pinia";
 
 export default {
   name: "CounterComp",
-  props: {
-    counter: Object,
-  },
-  methods: {
-    ...mapActions(useCountersStore, ["decrement", "increment"]),
-  },
   computed: {
-    ...mapState(useCountersStore, ["counters"]),
+    ...mapStores(useCountersStore),
   },
 };
 </script>
