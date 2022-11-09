@@ -1,5 +1,8 @@
 <template>
   <div class="counters">
+    <h2>
+      Sum of counters: <span>{{ getSum }}</span>
+    </h2>
     <CounterComp
       @decrementCount="decrement"
       @incrementCount="increment"
@@ -31,6 +34,13 @@ export default {
       curCounter.count++;
     },
   },
+  computed: {
+    getSum() {
+      let sum = 0;
+      this.counters.forEach((counter) => (sum += counter.count));
+      return sum;
+    },
+  },
 };
 </script>
 
@@ -38,5 +48,13 @@ export default {
 .counters {
   width: 200px;
   margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+h2 span {
+  font-size: 3rem;
 }
 </style>
